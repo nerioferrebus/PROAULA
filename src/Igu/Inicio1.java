@@ -91,8 +91,8 @@ public class Inicio1 extends javax.swing.JFrame {
         String contrasena = new String(txtpass.getPassword());
 
     if ((usuario.equals("evert") && contrasena.equals("123")) ||
-        (usuario.equals("Nerio") && contrasena.equals("1234")) ||
-        (usuario.equals("Henry") && contrasena.equals("12345"))) {
+        (usuario.equals("nerio") && contrasena.equals("1234")) ||
+        (usuario.equals("henry") && contrasena.equals("12345"))) {
         Pantalla ver = new Pantalla();
         
         ver.setExtendedState(Pantalla.MAXIMIZED_BOTH);

@@ -108,6 +108,11 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
         });
 
         campoPago.setBorder(javax.swing.BorderFactory.createTitledBorder("Pago"));
+        campoPago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                campoPagoActionPerformed(evt);
+            }
+        });
 
         campoFechaS.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha Salida\n"));
 
@@ -208,8 +213,8 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
         }
 
         try {
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
-            PreparedStatement pst = cn.prepareStatement("select * from usuarios where CEDULA = ?");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
+            PreparedStatement pst = cn.prepareStatement("select * from clientes where CEDULA = ?");
 
             pst.setString(1, txt_cedula.getText().trim());
 
@@ -240,6 +245,7 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
                 if (campoCedula.getText().trim().isEmpty() || 
                     campoNombre.getText().trim().isEmpty() || campoEmail.getText().trim().isEmpty() ||
                     campoTelefono.getText().trim().isEmpty() || campoFechaE.getText().trim().isEmpty() ||
+                    campoFechaS.getText().trim().isEmpty() || campoPago.getText().trim().isEmpty() ||
                     campoHabitacion.getText().trim().isEmpty()) {
             
             JOptionPane.showMessageDialog(null, "NO HA SELECCIONADO NINGUN ITEM PARA MODIFICAR\n"
@@ -255,8 +261,8 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
 
                 String cedula = txt_cedula.getText().trim();
 
-                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
-                PreparedStatement pst = cn.prepareStatement("update usuarios set NOMBRE = ?, EMAIL = ?, TELEFONO = ?, FECHAE = ?, FECHAS = ?, PAGORECIBIDO = ?, PAGORECIBIDO = ? where CEDULA = " + cedula);
+                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
+                PreparedStatement pst = cn.prepareStatement("update clientes set NOMBRE = ?, EMAIL = ?, TELEFONO = ?, FECHAE = ?, FECHAS = ?, PAGORECIBIDO = ?, HABITACION = ? where CEDULA = " + cedula);
 
                 pst.setString(1, campoNombre.getText().trim());
                 pst.setString(2, campoEmail.getText().trim());
@@ -291,6 +297,10 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
     private void txt_cedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cedulaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_cedulaActionPerformed
+
+    private void campoPagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_campoPagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_campoPagoActionPerformed
 
     /**
      * @param args the command line arguments

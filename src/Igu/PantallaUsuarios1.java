@@ -239,8 +239,8 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
 
         try {
 
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
-            PreparedStatement pst = cn.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
+            PreparedStatement pst = cn.prepareStatement("insert into clientes values(?,?,?,?,?,?,?,?,?)");
 
             pst.setString(1, "0");
             pst.setString(2, txt_cedula.getText().trim());

@@ -26,9 +26,9 @@ public class VentanaReportes extends javax.swing.JFrame {
         model.setRowCount(0);
 
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from usuarios");
+            ResultSet rs = stmt.executeQuery("select * from clientes");
 
             while (rs.next()) {
 
@@ -194,8 +194,8 @@ public class VentanaReportes extends javax.swing.JFrame {
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar el cliente con cédula " + cedulaAEliminar + "?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
 
             if (confirmacion == JOptionPane.YES_OPTION) {
-                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
-                PreparedStatement pst = cn.prepareStatement("delete from usuarios where cedula = ?");
+                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
+                PreparedStatement pst = cn.prepareStatement("delete from clientes where cedula = ?");
                 pst.setString(1, cedulaAEliminar);
 
                 int filasAfectadas = pst.executeUpdate();
@@ -231,8 +231,8 @@ public class VentanaReportes extends javax.swing.JFrame {
             int cedula = Integer.parseInt(cedulaStr);
 
 
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
-            PreparedStatement pst = cn.prepareStatement("select * from usuarios where CEDULA = ?");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
+            PreparedStatement pst = cn.prepareStatement("select * from clientes where CEDULA = ?");
             pst.setInt(1, cedula);
 
             ResultSet rs = pst.executeQuery();
@@ -280,9 +280,9 @@ public class VentanaReportes extends javax.swing.JFrame {
         model.setRowCount(0);
 
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from usuarios");
+            ResultSet rs = stmt.executeQuery("select * from clientes");
 
             while (rs.next()) {
 
