@@ -10,7 +10,9 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
@@ -42,8 +44,6 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
         txt_nombre = new javax.swing.JTextField();
         txt_email = new javax.swing.JTextField();
         txt_telefono = new javax.swing.JTextField();
-        txt_fechaE = new javax.swing.JTextField();
-        txt_fechaS = new javax.swing.JTextField();
         txt_pago = new javax.swing.JTextField();
         txt_habitacion = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
@@ -51,6 +51,8 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
         respuesta = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        txt_fechaE = new com.toedter.calendar.JDateChooser();
+        txt_fechaS = new com.toedter.calendar.JDateChooser();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -59,8 +61,7 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 0, 0));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Datos de usuarios", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(255, 255, 255))); // NOI18N
-        jPanel1.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)), "Datos de usuarios", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(255, 255, 255))); // NOI18N
 
         txt_cedula.setBorder(javax.swing.BorderFactory.createTitledBorder("CEDULA"));
         txt_cedula.addActionListener(new java.awt.event.ActionListener() {
@@ -90,20 +91,6 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
             }
         });
 
-        txt_fechaE.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE ENTRADA"));
-        txt_fechaE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_fechaEActionPerformed(evt);
-            }
-        });
-
-        txt_fechaS.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA DE SALIDA"));
-        txt_fechaS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_fechaSActionPerformed(evt);
-            }
-        });
-
         txt_pago.setBorder(javax.swing.BorderFactory.createTitledBorder("PAGO"));
         txt_pago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,7 +106,6 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
         });
 
         jButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Igu/Iconos/cancelar48px.png"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -128,7 +114,6 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
         });
 
         jButton2.setBackground(new java.awt.Color(0, 0, 0));
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Igu/Iconos/guardar48px.png.png"))); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,6 +128,10 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setText("Salir");
+
+        txt_fechaE.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA ENTRADA"));
+
+        txt_fechaS.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA SALIDA"));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -162,9 +151,7 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
                                 .addComponent(txt_nombre)
                                 .addComponent(txt_email)
                                 .addComponent(txt_telefono)
-                                .addComponent(txt_fechaS, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txt_habitacion, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txt_fechaE, javax.swing.GroupLayout.Alignment.LEADING))
+                                .addComponent(txt_habitacion, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(txt_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,14 +159,19 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(41, 41, 41))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel4)
-                                .addGap(53, 53, 53))))))
+                                .addGap(53, 53, 53))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_fechaE, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_fechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,11 +184,11 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
                 .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_fechaE, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_fechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_fechaE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
+                .addComponent(txt_fechaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -219,7 +211,7 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 40, 450, 350));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 460, 400));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Igu/Iconos/usuario252px.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 220, 260));
@@ -246,14 +238,6 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_telefonoActionPerformed
 
-    private void txt_fechaEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_fechaEActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_fechaEActionPerformed
-
-    private void txt_fechaSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_fechaSActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txt_fechaSActionPerformed
-
     private void txt_pagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_pagoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_pagoActionPerformed
@@ -263,59 +247,65 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_habitacionActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (txt_cedula.getText().trim().isEmpty() || txt_fechaS.getText().trim().isEmpty() ||
-            txt_email.getText().trim().isEmpty() || txt_fechaE.getText().trim().isEmpty() ||
-            txt_habitacion.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty() ||
-            txt_pago.getText().trim().isEmpty() || txt_telefono.getText().trim().isEmpty()){
+        if (txt_cedula.getText().trim().isEmpty() || 
+    // other field checks...
+    txt_fechaE.getDate() == null ||
+    txt_fechaS.getDate() == null) {
 
-            JOptionPane.showMessageDialog(null, "POR FAVOR LLENE TODOS LOS CAMPOS", "CAMPOS INCOMPLETOS", JOptionPane.ERROR_MESSAGE);
-            return;
+    JOptionPane.showMessageDialog(null, "POR FAVOR LLENE TODOS LOS CAMPOS", "CAMPOS INCOMPLETOS", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
+try {
+    Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
+    PreparedStatement pst = cn.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
+
+    pst.setString(1, "0");
+    pst.setString(2, txt_cedula.getText().trim());
+    pst.setString(3, txt_nombre.getText().trim());
+    pst.setString(4, txt_email.getText().trim());
+    pst.setString(5, txt_telefono.getText().trim());
+
+    
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    pst.setString(6, dateFormat.format(txt_fechaE.getDate()));
+    pst.setString(7, dateFormat.format(txt_fechaS.getDate()));
+
+    pst.setString(8, txt_pago.getText().trim());
+    pst.setString(9, txt_habitacion.getText().trim());
+
+    pst.executeUpdate();
+
+    // Clear the text fields
+    txt_cedula.setText("");
+    txt_nombre.setText("");
+    txt_email.setText("");
+    txt_telefono.setText("");
+    txt_fechaE.setDate(null);
+    txt_fechaS.setDate(null);
+    txt_pago.setText("");
+    txt_habitacion.setText("");
+
+    respuesta.setText("CLIENTE REGISTRADO");
+
+    Timer timer = new Timer(2000, new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            respuesta.setText("");
         }
+    });
+    timer.setRepeats(false);
+    timer.start();
 
-        try {
+}  catch (SQLException e) {
+    // Check if the exception is due to a duplicate key violation
+    if (e.getSQLState().equals("23000") && e.getErrorCode() == 1062) {
+        JOptionPane.showMessageDialog(null, "La cedula ya existe. Por favor, digite otra.", "Error", JOptionPane.ERROR_MESSAGE);
+    } else {
+        e.printStackTrace(); // Handle other SQLExceptions appropriately
+    }
+}
 
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
-            PreparedStatement pst = cn.prepareStatement("insert into clientes values(?,?,?,?,?,?,?,?,?)");
-
-            pst.setString(1, "0");
-            pst.setString(2, txt_cedula.getText().trim());
-            pst.setString(3, txt_nombre.getText().trim());
-            pst.setString(4, txt_email.getText().trim());
-            pst.setString(5, txt_telefono.getText().trim());
-            pst.setString(6, txt_fechaE.getText().trim());
-            pst.setString(7, txt_fechaS.getText().trim());
-            pst.setString(8, txt_pago.getText().trim());
-            pst.setString(9, txt_habitacion.getText().trim());
-
-            
-            pst.executeUpdate();
-
-            txt_cedula.setText("");
-            txt_nombre.setText("");
-            txt_email.setText("");
-            txt_telefono.setText("");
-            txt_fechaE.setText("");
-            txt_fechaS.setText("");
-            txt_pago.setText("");
-            txt_habitacion.setText("");
-          
-
-            respuesta.setText("CLIENTE REGISTRADO");
-
-            Timer timer = new Timer(2000, new ActionListener() {
-                public void actionPerformed(ActionEvent e) {
-                    respuesta.setText("");
-                }
-            });
-            timer.setRepeats(false);
-            timer.start();
-            
-        } catch (Exception e) {
-               
-            e.printStackTrace();
-
-        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -368,8 +358,8 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
     private javax.swing.JLabel respuesta;
     private javax.swing.JTextField txt_cedula;
     private javax.swing.JTextField txt_email;
-    private javax.swing.JTextField txt_fechaE;
-    private javax.swing.JTextField txt_fechaS;
+    private com.toedter.calendar.JDateChooser txt_fechaE;
+    private com.toedter.calendar.JDateChooser txt_fechaS;
     private javax.swing.JTextField txt_habitacion;
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JTextField txt_pago;
