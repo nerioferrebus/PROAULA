@@ -13,6 +13,9 @@ import java.sql.Statement;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -49,7 +52,6 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
         campoEmail = new javax.swing.JTextField();
         campoTelefono = new javax.swing.JTextField();
         campoNombre = new javax.swing.JTextField();
-        campoFechaE = new javax.swing.JTextField();
         campoHabitacion = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         txt_cedula = new javax.swing.JTextField();
@@ -58,7 +60,8 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
         respuesta = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         campoPago = new javax.swing.JTextField();
-        campoFechaS = new javax.swing.JTextField();
+        campoFechaE = new com.toedter.calendar.JDateChooser();
+        campoFechaS = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -72,8 +75,6 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
         campoTelefono.setBorder(javax.swing.BorderFactory.createTitledBorder("Telefono"));
 
         campoNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("Nombre"));
-
-        campoFechaE.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha Entrada"));
 
         campoHabitacion.setBorder(javax.swing.BorderFactory.createTitledBorder("Habitacion"));
 
@@ -114,7 +115,9 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
             }
         });
 
-        campoFechaS.setBorder(javax.swing.BorderFactory.createTitledBorder("Fecha Salida\n"));
+        campoFechaE.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA ENTRADA"));
+
+        campoFechaS.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA SALIDA"));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -132,18 +135,19 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
                     .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(campoFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(campoPago, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(campoNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(campoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(campoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoFechaE, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(campoHabitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(campoFechaE, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(campoTelefono, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)
+                            .addComponent(campoHabitacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE))
                         .addGap(18, 18, 18)
                         .addComponent(jButton3))
-                    .addComponent(campoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(campoFechaS, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(campoPago, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 161, Short.MAX_VALUE)))
                 .addGap(31, 31, 31))
         );
         jPanel1Layout.setVerticalGroup(
@@ -172,11 +176,11 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
                         .addComponent(campoEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(campoTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(campoFechaE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(29, 29, 29)
                         .addComponent(campoFechaS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
+                        .addGap(18, 18, 18)
                         .addComponent(campoPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -204,75 +208,95 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (txt_cedula.getText().trim().isEmpty()) {
-            
-            JOptionPane.showMessageDialog(null, "   NO HA INTRODUCIDO EL ID\n"
-                    + "POR FAVOR INTRODUZCA UN ID", "ERROR", JOptionPane.ERROR_MESSAGE);
-            return;
-        
+      if (txt_cedula.getText().trim().isEmpty()) {
+    JOptionPane.showMessageDialog(null, "   NO HA INTRODUCIDO EL ID\n"
+            + "POR FAVOR INTRODUZCA UN ID", "ERROR", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+try {
+    Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
+    PreparedStatement pst = cn.prepareStatement("select * from usuarios where CEDULA = ?");
+
+    pst.setString(1, txt_cedula.getText().trim());
+
+    ResultSet rs = pst.executeQuery();
+
+    if (rs.next()) {
+        campoCedula.setText(rs.getString("CEDULA"));
+        campoNombre.setText(rs.getString("NOMBRE"));
+        campoEmail.setText(rs.getString("EMAIL"));
+        campoTelefono.setText(rs.getString("TELEFONO"));
+
+        // Use SimpleDateFormat to parse the date values from the ResultSet
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        // Parse and set the date values for JDateChooser fields
+        try {
+            Date fechaE = dateFormat.parse(rs.getString("FECHAE"));
+            campoFechaE.setDate(fechaE);
+        } catch (ParseException e) {
+            e.printStackTrace(); // Handle the exception appropriately
         }
 
         try {
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
-            PreparedStatement pst = cn.prepareStatement("select * from clientes where CEDULA = ?");
-
-            pst.setString(1, txt_cedula.getText().trim());
-
-            ResultSet rs = pst.executeQuery();
-
-            if (rs.next()) {
-                campoCedula.setText(rs.getString("CEDULA"));
-                campoNombre.setText(rs.getString("NOMBRE"));
-                campoEmail.setText(rs.getString("EMAIL"));
-                campoTelefono.setText(rs.getString("TELEFONO"));
-                campoFechaE.setText(rs.getString("FECHAE"));
-                campoFechaS.setText(rs.getString("FECHAS"));
-                campoPago.setText(rs.getString("PAGORECIBIDO"));
-                campoHabitacion.setText(rs.getString("HABITACION"));
-
-            } else {
-
-                JOptionPane.showConfirmDialog(null, "Cliente no registrado", "ERROR", JOptionPane.WARNING_MESSAGE);
-
-            }
-
-        } catch (Exception e) {
-
+            Date fechaS = dateFormat.parse(rs.getString("FECHAS"));
+            campoFechaS.setDate(fechaS);
+        } catch (ParseException e) {
+            e.printStackTrace(); // Handle the exception appropriately
         }
+
+        campoPago.setText(rs.getString("PAGORECIBIDO"));
+        campoHabitacion.setText(rs.getString("HABITACION"));
+
+    } else {
+        JOptionPane.showMessageDialog(null, "Cliente no registrado", "ERROR", JOptionPane.WARNING_MESSAGE);
+    }
+
+} catch (Exception e) {
+    e.printStackTrace(); // Handle the exception appropriately
+}
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-                if (campoCedula.getText().trim().isEmpty() || 
-                    campoNombre.getText().trim().isEmpty() || campoEmail.getText().trim().isEmpty() ||
-                    campoTelefono.getText().trim().isEmpty() || campoFechaE.getText().trim().isEmpty() ||
-                    campoFechaS.getText().trim().isEmpty() || campoPago.getText().trim().isEmpty() ||
-                    campoHabitacion.getText().trim().isEmpty()) {
-            
-            JOptionPane.showMessageDialog(null, "NO HA SELECCIONADO NINGUN ITEM PARA MODIFICAR\n"
-                    + "      POR FAVOR SELECCIONE EL ITEM A MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
-            return;
+               if (campoCedula.getText().trim().isEmpty() || 
+    campoNombre.getText().trim().isEmpty() || campoEmail.getText().trim().isEmpty() ||
+    campoTelefono.getText().trim().isEmpty() || campoFechaE.getDate() == null ||
+    campoFechaS.getDate() == null || campoPago.getText().trim().isEmpty() ||
+    campoHabitacion.getText().trim().isEmpty()) {
+    
+    JOptionPane.showMessageDialog(null, "NO HA SELECCIONADO NINGUN ITEM PARA MODIFICAR\n"
+            + "      POR FAVOR SELECCIONE EL ITEM A MODIFICAR", "ERROR", JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+int resp = JOptionPane.showConfirmDialog(null, "¿Desea modificar el contenido?", "Confirmar modificacion", JOptionPane.YES_NO_OPTION);
+
+if (resp == JOptionPane.YES_OPTION) {
+    try {
+        String cedula = txt_cedula.getText().trim();
+
+        Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
+        String sql = "UPDATE clientes SET NOMBRE = ?, EMAIL = ?, TELEFONO = ?, FECHAE = ?, FECHAS = ?, PAGORECIBIDO = ?, HABITACION = ? WHERE CEDULA = ?";
         
-        }
+        try (PreparedStatement pst = cn.prepareStatement(sql)) {
+            pst.setString(1, campoNombre.getText().trim());
+            pst.setString(2, campoEmail.getText().trim());
+            pst.setString(3, campoTelefono.getText().trim());
 
-        int resp = JOptionPane.showConfirmDialog(null, "¿Desea modificar el contenido?", "Confirmar modificacion", JOptionPane.YES_NO_OPTION);
-            if (resp == JOptionPane.YES_OPTION) {
-                   
-            try {
+            
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            pst.setString(4, dateFormat.format(campoFechaE.getDate()));
+            pst.setString(5, dateFormat.format(campoFechaS.getDate()));
 
-                String cedula = txt_cedula.getText().trim();
+            pst.setString(6, campoPago.getText().trim());
+            pst.setString(7, campoHabitacion.getText().trim());
+            pst.setString(8, cedula);
 
-                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
-                PreparedStatement pst = cn.prepareStatement("update clientes set NOMBRE = ?, EMAIL = ?, TELEFONO = ?, FECHAE = ?, FECHAS = ?, PAGORECIBIDO = ?, HABITACION = ? where CEDULA = " + cedula);
+            int rowsAffected = pst.executeUpdate();
 
-                pst.setString(1, campoNombre.getText().trim());
-                pst.setString(2, campoEmail.getText().trim());
-                pst.setString(3, campoTelefono.getText().trim());
-                pst.setString(4, campoFechaE.getText().trim());
-                pst.setString(5, campoFechaS.getText().trim());
-                pst.setString(6, campoPago.getText().trim());
-                pst.setString(7, campoHabitacion.getText().trim());
-                pst.executeUpdate();
-
+            if (rowsAffected > 0) {
                 respuesta.setText("MODIFICACION EXITOSA");
 
                 Timer timer = new Timer(2000, new ActionListener() {
@@ -282,11 +306,15 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
                 });
                 timer.setRepeats(false);
                 timer.start();
-                                
-            } catch (Exception e) {
-
+            } else {
+                respuesta.setText("ERROR AL MODIFICAR");
             }
-        }
+        } 
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+}
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -343,8 +371,8 @@ public class VentanaUsuariosVerModificar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField campoCedula;
     private javax.swing.JTextField campoEmail;
-    private javax.swing.JTextField campoFechaE;
-    private javax.swing.JTextField campoFechaS;
+    private com.toedter.calendar.JDateChooser campoFechaE;
+    private com.toedter.calendar.JDateChooser campoFechaS;
     private javax.swing.JTextField campoHabitacion;
     private javax.swing.JTextField campoNombre;
     private javax.swing.JTextField campoPago;

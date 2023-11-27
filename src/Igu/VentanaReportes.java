@@ -26,9 +26,9 @@ public class VentanaReportes extends javax.swing.JFrame {
         model.setRowCount(0);
 
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from clientes");
+            ResultSet rs = stmt.executeQuery("select * from usuarios");
 
             while (rs.next()) {
 
@@ -105,6 +105,8 @@ public class VentanaReportes extends javax.swing.JFrame {
         });
         jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 420, -1, -1));
 
+        tablaUsuario.setBackground(new java.awt.Color(0, 0, 0));
+        tablaUsuario.setForeground(new java.awt.Color(255, 255, 255));
         tablaUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -175,8 +177,8 @@ public class VentanaReportes extends javax.swing.JFrame {
             int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar el cliente con cédula " + cedulaAEliminar + "?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
 
             if (confirmacion == JOptionPane.YES_OPTION) {
-                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
-                PreparedStatement pst = cn.prepareStatement("delete from clientes where cedula = ?");
+                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
+                PreparedStatement pst = cn.prepareStatement("delete from usuarios where cedula = ?");
                 pst.setString(1, cedulaAEliminar);
 
                 int filasAfectadas = pst.executeUpdate();
@@ -212,8 +214,8 @@ public class VentanaReportes extends javax.swing.JFrame {
             int cedula = Integer.parseInt(cedulaStr);
 
 
-            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
-            PreparedStatement pst = cn.prepareStatement("select * from clientes where CEDULA = ?");
+            Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
+            PreparedStatement pst = cn.prepareStatement("select * from usuarios where CEDULA = ?");
             pst.setInt(1, cedula);
 
             ResultSet rs = pst.executeQuery();
@@ -261,9 +263,9 @@ public class VentanaReportes extends javax.swing.JFrame {
         model.setRowCount(0);
 
         try {
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_nueva", "root", "");
+            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from clientes");
+            ResultSet rs = stmt.executeQuery("select * from usuarios");
 
             while (rs.next()) {
 
