@@ -170,37 +170,92 @@ public class VentanaReportes extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
      
-    try {
-        String cedulaAEliminar = JOptionPane.showInputDialog(null, "Ingrese la cédula del cliente a eliminar:");
+     try {
+            String cedulaAEliminar = JOptionPane.showInputDialog(null, "Ingrese la cédula del cliente a eliminar:");
 
-        if (cedulaAEliminar != null && !cedulaAEliminar.isEmpty()) {
-            int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar el cliente con cédula " + cedulaAEliminar + "?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
+            if (cedulaAEliminar != null && !cedulaAEliminar.isEmpty()) {
+                int confirmacion = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea eliminar el cliente con cédula " + cedulaAEliminar + "?", "Confirmar Eliminación", JOptionPane.YES_NO_OPTION);
 
-            if (confirmacion == JOptionPane.YES_OPTION) {
-                Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
-                PreparedStatement pst = cn.prepareStatement("delete from usuarios where cedula = ?");
-                pst.setString(1, cedulaAEliminar);
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
+                    cn.setAutoCommit(false); // Desactivar la autoconfirmación para transacciones
 
-                int filasAfectadas = pst.executeUpdate();
+                    // Obtener el número de habitación antes de eliminar al cliente
+                    PreparedStatement obtenerHabitacion = cn.prepareStatement("SELECT habitacion FROM usuarios WHERE cedula = ?");
+                    obtenerHabitacion.setString(1, cedulaAEliminar);
+                    ResultSet rsHabitacion = obtenerHabitacion.executeQuery();
 
-                if (filasAfectadas > 0) {
-                    JOptionPane.showMessageDialog(null, "Cliente con cédula " + cedulaAEliminar + " eliminado correctamente.", "Eliminación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                    String habitacionAntesEliminar = null;
+                    if (rsHabitacion.next()) {
+                        habitacionAntesEliminar = rsHabitacion.getString("habitacion");
+                    }
+
+                    // Eliminar al cliente
+                    PreparedStatement pstEliminar = cn.prepareStatement("DELETE FROM usuarios WHERE cedula = ?");
+                    pstEliminar.setString(1, cedulaAEliminar);
+                    int filasAfectadas = pstEliminar.executeUpdate();
+
+                    PreparedStatement pstActualizarHabitacion = cn.prepareStatement("UPDATE habitaciones SET estado = 'disponible' WHERE numero = ?");
+                    
+                    if (filasAfectadas > 0) {
+                        // Actualizar el estado de la habitación a "disponible"
+                        
+                        pstActualizarHabitacion.setString(1, habitacionAntesEliminar);
+                        pstActualizarHabitacion.executeUpdate();
+
+                        JOptionPane.showMessageDialog(null, "Cliente con cédula " + cedulaAEliminar + " eliminado correctamente.", "Eliminación Exitosa", JOptionPane.INFORMATION_MESSAGE);
+                        cn.commit(); // Confirmar la transacción
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No se encontró ningún cliente con la cédula proporcionada.", "Cliente no Encontrado", JOptionPane.WARNING_MESSAGE);
+                    }
+
+                    pstEliminar.close();
+                    pstActualizarHabitacion.close();
+                    rsHabitacion.close();
+                    obtenerHabitacion.close();
+                    cn.close();
                 } else {
-                    JOptionPane.showMessageDialog(null, "No se encontró ningún cliente con la cédula proporcionada.", "Cliente no Encontrado", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Eliminación cancelada.", "Cancelado", JOptionPane.INFORMATION_MESSAGE);
+                }
+            } else {            
+            }
+
+            DefaultTableModel model = (DefaultTableModel) tablaUsuario.getModel();
+            model.setRowCount(0);
+
+            try {
+                Connection conn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("select * from usuarios");
+
+                while (rs.next()) {
+
+                    String id = rs.getString("id");
+                    String cedula = rs.getString("cedula");
+                    String nombre = rs.getString("nombre");
+                    String email = rs.getString("email");
+                    String tel = rs.getString("telefono");
+                    String fechaE = rs.getString("fechaE");
+                    String fechaS = rs.getString("fechaS");
+                    String pagoR = rs.getString("pagorecibido");
+                    String habitacion = rs.getString("habitacion");
+
+                    model.addRow(new Object[]{id, cedula, nombre, email, tel, fechaE, fechaS, pagoR, habitacion});
                 }
 
-                pst.close();
-                cn.close();
-            } else {
-                JOptionPane.showMessageDialog(null, "Eliminación cancelada.", "Cancelado", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese una cédula válida.", "Cédula Inválida", JOptionPane.ERROR_MESSAGE);
-        }
+                rs.close();
+                stmt.close();
+                conn.close();
 
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Error al eliminar el cliente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    }
+
+            } catch (SQLException e) {
+
+            }
+
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el cliente: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

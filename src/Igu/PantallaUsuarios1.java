@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 
@@ -48,12 +49,13 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
         txt_habitacion = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        respuesta = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txt_fechaE = new com.toedter.calendar.JDateChooser();
         txt_fechaS = new com.toedter.calendar.JDateChooser();
+        respuesta = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        habitaciones = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -133,6 +135,8 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
 
         txt_fechaS.setBorder(javax.swing.BorderFactory.createTitledBorder("FECHA SALIDA"));
 
+        respuesta.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -141,9 +145,10 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(respuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(112, 112, 112))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_fechaE, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_fechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -153,33 +158,39 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
                                 .addComponent(txt_telefono)
                                 .addComponent(txt_habitacion, javax.swing.GroupLayout.Alignment.LEADING))
                             .addComponent(txt_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(35, 35, 35)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGap(35, 35, 35)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(41, 41, 41))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(53, 53, 53))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(41, 41, 41))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(53, 53, 53))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_fechaE, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_fechaS, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(respuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(58, 58, 58))))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(txt_cedula, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txt_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(respuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -195,29 +206,37 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(6, 6, 6))
+                        .addGap(52, 52, 52))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(txt_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(18, 18, 18)
                                 .addComponent(txt_habitacion, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel4)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addComponent(respuesta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 460, 400));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 20, 460, 410));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Igu/Iconos/usuario252px.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, 220, 260));
 
+        habitaciones.setBackground(new java.awt.Color(0, 0, 0));
+        habitaciones.setForeground(new java.awt.Color(255, 255, 255));
+        habitaciones.setText("Habitaciones");
+        habitaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                habitacionesActionPerformed(evt);
+            }
+        });
+        getContentPane().add(habitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 380, -1, -1));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Igu/Iconos/Fondo-Usuario.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 750, 420));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 750, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -247,70 +266,148 @@ public class PantallaUsuarios1 extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_habitacionActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (txt_cedula.getText().trim().isEmpty() || 
-    // other field checks...
-    txt_fechaE.getDate() == null ||
-    txt_fechaS.getDate() == null) {
+       if (txt_cedula.getText().trim().isEmpty() || ((JTextField)txt_fechaE.getDateEditor().getUiComponent()).getText().trim().isEmpty() ||
+        txt_email.getText().trim().isEmpty() || ((JTextField)txt_fechaS.getDateEditor().getUiComponent()).getText().trim().isEmpty() ||
+        txt_habitacion.getText().trim().isEmpty() || txt_nombre.getText().trim().isEmpty() ||
+        txt_pago.getText().trim().isEmpty() || txt_telefono.getText().trim().isEmpty()){
 
-    JOptionPane.showMessageDialog(null, "POR FAVOR LLENE TODOS LOS CAMPOS", "CAMPOS INCOMPLETOS", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+        JOptionPane.showMessageDialog(null, "POR FAVOR LLENE TODOS LOS CAMPOS", "CAMPOS INCOMPLETOS", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-try {
-    Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
-    PreparedStatement pst = cn.prepareStatement("insert into usuarios values(?,?,?,?,?,?,?,?,?)");
+    Connection connection = null;
+    try {
+        connection = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
+        connection.setAutoCommit(false); // Desactivar la autoconfirmación para transacciones
 
-    pst.setString(1, "0");
-    pst.setString(2, txt_cedula.getText().trim());
-    pst.setString(3, txt_nombre.getText().trim());
-    pst.setString(4, txt_email.getText().trim());
-    pst.setString(5, txt_telefono.getText().trim());
+        // Verificar disponibilidad de la habitación
+        PreparedStatement consultaHabitacion = connection.prepareStatement("SELECT estado FROM habitaciones WHERE numero = ?");
+        consultaHabitacion.setString(1, txt_habitacion.getText().trim());
+        ResultSet resultado = consultaHabitacion.executeQuery();
 
-    
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        if (resultado.next()) {
+            String estadoHabitacion = resultado.getString("estado");
 
-    pst.setString(6, dateFormat.format(txt_fechaE.getDate()));
-    pst.setString(7, dateFormat.format(txt_fechaS.getDate()));
+            if (estadoHabitacion.equals("disponible")) {
+                // La habitación está disponible, proceder con la inserción en ambas tablas
 
-    pst.setString(8, txt_pago.getText().trim());
-    pst.setString(9, txt_habitacion.getText().trim());
+                // Insertar en la tabla de usuarios
+                PreparedStatement pstUsuarios = connection.prepareStatement("INSERT INTO usuarios VALUES (?,?,?,?,?,?,?,?,?)");
+                pstUsuarios.setString(1, "0");
+                pstUsuarios.setString(2, txt_cedula.getText().trim());
+                pstUsuarios.setString(3, txt_nombre.getText().trim());
+                pstUsuarios.setString(4, txt_email.getText().trim());
+                pstUsuarios.setString(5, txt_telefono.getText().trim());
 
-    pst.executeUpdate();
+                java.sql.Date fechaE = new java.sql.Date(txt_fechaE.getDate().getTime());
+                java.sql.Date fechaS = new java.sql.Date(txt_fechaS.getDate().getTime());
 
-    // Clear the text fields
-    txt_cedula.setText("");
-    txt_nombre.setText("");
-    txt_email.setText("");
-    txt_telefono.setText("");
-    txt_fechaE.setDate(null);
-    txt_fechaS.setDate(null);
-    txt_pago.setText("");
-    txt_habitacion.setText("");
+                pstUsuarios.setDate(6, fechaE);
+                pstUsuarios.setDate(7, fechaS);
 
-    respuesta.setText("CLIENTE REGISTRADO");
+                pstUsuarios.setString(8, txt_pago.getText().trim());
+                pstUsuarios.setString(9, txt_habitacion.getText().trim());
 
-    Timer timer = new Timer(2000, new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            respuesta.setText("");
+                pstUsuarios.executeUpdate();
+
+                // Actualizar estado de la habitación a "ocupada"
+                PreparedStatement pstHabitaciones = connection.prepareStatement("UPDATE habitaciones SET estado = 'ocupada' WHERE numero = ?");
+                pstHabitaciones.setString(1, txt_habitacion.getText().trim());
+                pstHabitaciones.executeUpdate();
+
+                connection.commit(); // Confirmar la transacción
+
+                // Limpiar los campos después de la inserción
+                txt_cedula.setText("");
+                txt_nombre.setText("");
+                txt_email.setText("");
+                txt_telefono.setText("");
+                txt_fechaE.setDate(null);
+                txt_fechaS.setDate(null);
+                txt_pago.setText("");
+                txt_habitacion.setText("");
+
+                respuesta.setText("CLIENTE REGISTRADO");
+
+                Timer timer = new Timer(2000, new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        respuesta.setText("");
+                    }
+                });
+                timer.setRepeats(false);
+                timer.start();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "La habitación ya está ocupada", "Habitación Ocupada", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "La habitación no existe", "Habitación No Encontrada", JOptionPane.ERROR_MESSAGE);
         }
-    });
-    timer.setRepeats(false);
-    timer.start();
 
-}  catch (SQLException e) {
-    // Check if the exception is due to a duplicate key violation
+    } catch  (SQLException e) {
+   
     if (e.getSQLState().equals("23000") && e.getErrorCode() == 1062) {
         JOptionPane.showMessageDialog(null, "La cedula ya existe. Por favor, digite otra.", "Error", JOptionPane.ERROR_MESSAGE);
     } else {
-        e.printStackTrace(); // Handle other SQLExceptions appropriately
+        e.printStackTrace(); 
     }
-}
+
+        try {
+            if (connection != null) {
+                connection.rollback(); // Deshacer la transacción en caso de error
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        e.printStackTrace();
+    } finally {
+        try {
+            if (connection != null) {
+                connection.setAutoCommit(true); // Restaurar la autoconfirmación al finalizar
+                connection.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    } 
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void habitacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_habitacionesActionPerformed
+        try {
+        Connection cn = DriverManager.getConnection("jdbc:mysql://localhost/bd_usuarios", "root", "");
+        Statement stmt = cn.createStatement();
+        ResultSet rs = stmt.executeQuery("select * from habitaciones");
+
+        StringBuilder mensaje = new StringBuilder("Información de Habitaciones:\n");
+
+        while (rs.next()) {
+            mensaje.append("Habitación: ").append(rs.getInt("NUMERO"))
+                    .append("... ").append(rs.getString("Estado"))
+                    .append("\n");
+        }
+
+        if (mensaje.length() > 0) {
+            JOptionPane.showMessageDialog(null, mensaje.toString(), "Habitaciones", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay habitaciones registradas.", "Habitaciones no Encontradas", JOptionPane.WARNING_MESSAGE);
+        }
+
+        // Cerrar recursos
+        rs.close();
+        stmt.close();
+        cn.close();
+
+    } catch (Exception e) {
+        // Capturar otras excepciones
+        JOptionPane.showMessageDialog(null, "Error al buscar las habitaciones: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_habitacionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -348,6 +445,7 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton habitaciones;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
